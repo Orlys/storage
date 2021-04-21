@@ -9,6 +9,7 @@ using Storage.Net.Streaming;
 
 namespace Storage.Net.Blobs.Files
 {
+   // todo: distribution file locker
    class ZipFileBlobStorage : IBlobStorage
    {
       private Stream _fileStream;

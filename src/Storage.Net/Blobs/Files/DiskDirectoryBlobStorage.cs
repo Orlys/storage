@@ -10,6 +10,7 @@ using NetBox;
 
 namespace Storage.Net.Blobs.Files
 {
+   // todo: distribution file locker
    /// <summary>
    /// Blob storage implementation which uses local file system directory
    /// </summary>

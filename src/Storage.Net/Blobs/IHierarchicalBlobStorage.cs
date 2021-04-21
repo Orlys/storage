@@ -6,7 +6,7 @@ namespace Storage.Net.Blobs
    /// <summary>
    /// Blob Storage that supports hierarchy
    /// </summary>
-   public interface IHierarchicalBlobStorage
+   public interface IHierarchicalBlobStorage : IBlobStorage
    {
       /// <summary>
       /// Creates a new folder
