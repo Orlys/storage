@@ -12,7 +12,7 @@ using Storage.Net.Blobs;
 
 namespace Storage.Net.Ftp
 {
-   class FluentFtpBlobStorage : IBlobStorage
+   class FluentFtpBlobStorage : IBlobStorage, IHierarchicalBlobStorage
    {
       private readonly FtpClient _client;
       private readonly bool _dispose;
@@ -190,6 +190,16 @@ namespace Storage.Net.Ftp
             {
                await dataStream.CopyToAsync(dest).ConfigureAwait(false);
             }
+         }).ConfigureAwait(false);
+      }
+       
+      public async Task CreateFolderAsync(string folderPath, CancellationToken cancellationToken = default(CancellationToken))
+      {
+         FtpClient client = await GetClientAsync().ConfigureAwait(false);
+
+         await retryPolicy.ExecuteAsync(async () =>
+         {
+            await client.CreateDirectoryAsync(folderPath).ConfigureAwait(false);
          }).ConfigureAwait(false);
       }
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Storage.Net.Blobs.Sinks
 {
-   class SinkedBlobStorage : IBlobStorage
+   class SinkedBlobStorage : IBlobStorage, IHierarchicalBlobStorage
    {
       private readonly IBlobStorage _parent;
       private readonly ITransformSink[] _sinks;
@@ -75,6 +75,11 @@ namespace Storage.Net.Blobs.Sinks
          {
             await _parent.WriteAsync(fullPath, source, append, cancellationToken).ConfigureAwait(false);
          }
+      }
+
+      public Task CreateFolderAsync(string folderPath, CancellationToken cancellationToken = default)
+      {
+         return (_parent is IHierarchicalBlobStorage hierarchicalBlobStorage) ? hierarchicalBlobStorage.CreateFolderAsync(folderPath, cancellationToken) : Task.CompletedTask;
       }
    }
 }
